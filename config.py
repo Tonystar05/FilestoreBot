@@ -15,7 +15,7 @@ DB_URL = os.environ.get("DB_URL", "")
 DB_NAME = os.environ.get("DB_NAME", "Xeonfilestore01")
 
 
-CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002203107302"))
+CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002205750726"))
 FORCE_SUB_CHANNEL = int(os.environ.get("FORCE_SUB_CHANNEL", "-1001542373688"))
 FORCE_SUB_CHANNEL2 = int(os.environ.get("FORCE_SUB_CHANNEL2", "-1001804728701"))
 FORCE_SUB_CHANNEL3 = int(os.environ.get("FORCE_SUB_CHANNEL3", "-1001690762284"))
