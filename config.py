@@ -9,7 +9,6 @@ BOT_TOKEN = os.environ.get("BOT_TOKEN", "6722606812:AAEdb3pmMLJhK_qHhJsA5eT03bKt
 API_ID = int(os.environ.get("API_ID", "15529802"))
 API_HASH = os.environ.get("API_HASH", "92bcb6aa798a6f1feadbc917fccb54d3")
 
-from os import environ
 
 API = environ.get("API", "") # shortlink api
 URL = environ.get("URL", "") # shortlink domain without https://
