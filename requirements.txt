@@ -6,4 +6,3 @@ dnspython
 aiohttp
 
 humanize
-dnspython
