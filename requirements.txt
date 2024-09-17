@@ -9,5 +9,6 @@ aiohttp
 shortzy
 pytz
 requests
+motor
 
 humanize
