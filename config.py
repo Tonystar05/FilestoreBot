@@ -21,6 +21,7 @@ OWNER_ID = int(os.environ.get("OWNER_ID", "821215952"))
 DB_URL = os.environ.get("DB_URL", "mongodb+srv://2gbRenameAUG:2gbRenameAUG@cluster0.uaysx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DB_NAME = os.environ.get("DB_NAME", "FileStoreXeon2Bot")
 START_PIC = os.environ.get("START_PIC", "https://telegra.ph/file/ec17880d61180d3312d6a.jpg")
+FORCE_PIC = os.environ.get("FORCE_PIC", "https://telegra.ph/file/e292b12890b8b4b9dcbd1.jpg")
 
 
 CHANNEL_ID = int(os.environ.get("CHANNEL_ID", "-1002203107302"))
