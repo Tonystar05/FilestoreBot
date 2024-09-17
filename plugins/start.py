@@ -32,7 +32,7 @@ async def start_command(client: Client, message: Message):
         # You can add any additional actions specific to the owner here
         await message.reply("You are the owner! Additional actions can be added here.")
 
-else:
+    else:
     if not await present_user(id):
         try:
             await add_user(id)
