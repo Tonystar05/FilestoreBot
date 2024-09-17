@@ -6,7 +6,24 @@ database = dbclient[DB_NAME]
 user_data = database['users']
 
 
+default_verify = {
+    'is_verified': False,
+    'verified_time': 0,
+    'verify_token': "",
+    'link': ""
+}
 
+def new_user(id):
+    return {
+        '_id': id,
+        'verify_status': {
+            'is_verified': False,
+            'verified_time': "",
+            'verify_token': "",
+            'link': ""
+        }
+    }
+    
 async def present_user(user_id : int):
     found = user_data.find_one({'_id': user_id})
     return bool(found)
