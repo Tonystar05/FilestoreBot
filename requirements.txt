@@ -6,5 +6,6 @@ dnspython
 aiohttp
 shortzy
 pytz
+requests
 
 humanize
