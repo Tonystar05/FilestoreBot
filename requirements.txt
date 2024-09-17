@@ -10,5 +10,6 @@ shortzy
 pytz
 requests
 motor
+umongo
 
 humanize
