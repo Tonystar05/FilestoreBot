@@ -29,8 +29,18 @@ async def present_user(user_id : int):
     return bool(found)
 
 async def add_user(user_id: int):
-    user_data.insert_one({'_id': user_id})
+    user = new_user(user_id)
+    await user_data.insert_one(user)
     return
+
+async def db_verify_status(user_id):
+    user = await user_data.find_one({'_id': user_id})
+    if user:
+        return user.get('verify_status', default_verify)
+    return default_verify
+
+async def db_update_verify_status(user_id, verify):
+    await user_data.update_one({'_id': user_id}, {'$set': {'verify_status': verify}})
 
 async def full_userbase():
     user_docs = user_data.find()
