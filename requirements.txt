@@ -1,6 +1,6 @@
 git+https://github.com/youesky/pyrogram
 
-pyrogram
+pyrofork
 TgCrypto
 pyromod
 pymongo
