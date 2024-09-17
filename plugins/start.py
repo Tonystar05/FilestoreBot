@@ -39,16 +39,28 @@ async def start_command(client: Client, message: Message):
             except:
                 pass
                 
-    text = message.text
-    if len(text)>7:
-        try:
-            base64_string = text.split(" ", 1)[1]
-        except:
-            return
-        string = await decode(base64_string)
-        argument = string.split("-")
-        if len(argument) == 3:
+        verify_status = await get_verify_status(id)
+        if verify_status['is_verified'] and VERIFY_EXPIRE < (time.time() - verify_status['verified_time']):
+            await update_verify_status(id, is_verified=False) 
+
+        if "verify_" in message.text:
+            _, token = message.text.split("_", 1)
+            if verify_status['verify_token'] != token:
+                return await message.reply("Your token is invalid or Expired. Try again by clicking /start")
+            await update_verify_status(id, is_verified=True, verified_time=time.time())
+            if verify_status["link"] == "":
+                reply_markup = None
+            await message.reply(f"Your token successfully verified and valid for: 24 Hour", reply_markup=reply_markup, protect_content=False, quote=True)
+    
+        elif len(message.text) > 7 and verify_status['is_verified']:
             try:
+               base64_string = message.text.split(" ", 1)[1]
+            except:
+                return
+            _string = await decode(base64_string)
+            argument = _string.split("-")
+            if len(argument) == 3:
+                try:
                 start = int(int(argument[1]) / abs(client.db_channel.id))
                 end = int(int(argument[2]) / abs(client.db_channel.id))
             except:
