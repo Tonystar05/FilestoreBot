@@ -4,9 +4,10 @@ from pyrogram.enums import ParseMode
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 from bot import Bot
-from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT, FILE_AUTO_DELETE
-from helper_func import subscribed, encode, decode, get_messages
-from database.database import add_user, del_user, full_userbase, present_user
+from config import *
+from helper_func import get_readable_time, increasepremtime, subscribed, decode, get_messages, get_shortlink, get_verify_status, update_verify_status, get_exp_time
+from database.database import add_admin, add_user, del_admin, del_user, full_adminbase, full_userbase, present_admin, present_user
+
 
 madflixofficials = FILE_AUTO_DELETE
 jishudeveloper = madflixofficials
@@ -24,30 +25,52 @@ async def start_command(client: Client, message: Message):
             await add_user(id)
         except:
             pass
-    text = message.text
-    if len(text)>7:
-        try:
-            base64_string = text.split(" ", 1)[1]
-        except:
-            return
-        string = await decode(base64_string)
-        argument = string.split("-")
-        if len(argument) == 3:
-            try:
-                start = int(int(argument[1]) / abs(client.db_channel.id))
-                end = int(int(argument[2]) / abs(client.db_channel.id))
-            except:
+     if USE_SHORTLINK:
+        for i in range(1):
+            if id in ADMINS:
+                continue
+            verify_status = await get_verify_status(id)
+            if verify_status['is_verified'] and VERIFY_EXPIRE < (time.time() - verify_status['verified_time']):
+                await update_verify_status(id, is_verified=False)
+            if "verify_" in message.text:
+                _, token = message.text.split("_", 1)
+                if verify_status['verify_token'] != token:
+                    return await message.reply("Your token is invalid or Expired ⌛. Try again by clicking /start")
+                await update_verify_status(id, is_verified=True, verified_time=time.time())
+                if verify_status["link"] == "":
+                    reply_markup = None
+                await message.reply(f"Your token successfully verified and valid for: 24 Hour ⏳", reply_markup=reply_markup, protect_content=False, quote=True)
+     if len(message.text) > 7:
+         for i in range(1):
+             if USE_SHORTLINK : 
+                 if id not in ADMINS:
+                     try:
+                         if not verify_status['is_verified']:
+                             continue
+                     except:
+                         continue
+             try:
+                 base64_string = text.split(" ", 1)[1]
+             except:
                 return
-            if start <= end:
-                ids = range(start,end+1)
-            else:
-                ids = []
-                i = start
-                while True:
-                    ids.append(i)
-                    i -= 1
-                    if i < end:
-                        break
+            _string = await decode(base64_string)
+            argument = _string.split("-")
+            if len(argument) == 3:
+                try:
+                    start = int(int(argument[1]) / abs(client.db_channel.id))
+                    end = int(int(argument[2]) / abs(client.db_channel.id))
+                except:
+                    return
+                if start <= end:
+                    ids = range(start, end+1)
+                else:
+                    ids = []
+                    i = start
+                    while True:
+                        ids.append(i)
+                        i -= 1
+                        if i < end:
+                            break
         elif len(argument) == 2:
             try:
                 ids = [int(int(argument[1]) / abs(client.db_channel.id))]
