@@ -10,11 +10,51 @@ API_ID = int(os.environ.get("API_ID", "15529802"))
 API_HASH = os.environ.get("API_HASH", "92bcb6aa798a6f1feadbc917fccb54d3")
 
 
-SHORTLINK_URL = os.environ.get("SHORTLINK_URL", "publicearn.com")
-SHORTLINK_API = os.environ.get("SHORTLINK_API", "bn623441bc55ef14be63018992134d393a62a9dfh5")
-VERIFY_EXPIRE = int(os.environ.get('VERIFY_EXPIRE', 600)) # Add time in seconds
-IS_VERIFY = os.environ.get("IS_VERIFY", "True")
-TUT_VID = os.environ.get("TUT_VID", "https://t.me/How_to_Download_7x/35")
+# add premium logs channel id
+PAYMENT_LOGS = int(environ.get('PAYMENT_LOGS', '-1001868871195'))
+
+#Shortner (token system) 
+"""
+some token verification sites
+https://dashboard.shareus.io/
+"""
+
+# Turn this feature on or off using True or False put value inside  ""
+# TRUE for yes FALSE if no 
+USE_SHORTLINK = True if os.environ.get('USE_SHORTLINK', "FALSE") == "TRUE" else False 
+# only shareus service known rightnow rest you can test on your own
+SHORTLINK_API_URL = os.environ.get("SHORTLINK_API_URL", "api.shareus.io")
+# SHORTLINK_API_KEY = os.environ.get("SHORTLINK_API_KEY", "")
+#use this key if not working ☠️ (jokin!!)
+SHORTLINK_API_KEY = os.environ.get("SHORTLINK_API_KEY", "")
+#add your custom time in secs for shortlink expiration.
+# 24hr = 86400
+# 12hr = 43200
+VERIFY_EXPIRE = int(os.environ.get('VERIFY_EXPIRE', "86400")) # Add time in seconds
+#Tutorial video for the user of your shortner on how to download.
+TUT_VID = os.environ.get("TUT_VID","https://t.me/How_to_Download_7x/32")
+
+
+#Payment to remove the token system
+#put TRUE if you want this feature
+USE_PAYMENT = True if (os.environ.get("USE_PAYMENT", "FALSE") == "TRUE") & (USE_SHORTLINK) else False
+#UPI ID
+UPI_ID = os.environ.get("UPI_ID", " ")
+#UPI QR CODE IMAGE
+UPI_IMAGE_URL = os.environ.get("UPI_IMAGE_URL", "")
+#SCREENSHOT URL of ADMIN for verification of payments
+SCREENSHOT_URL = os.environ.get("SCREENSHOT_URL", "")
+#Time and its price
+#7 Days
+PRICE1 = os.environ.get("PRICE1", "30 rs")
+#1 Month
+PRICE2 = os.environ.get("PRICE2", "110 rs")
+#3 Month
+PRICE3 = os.environ.get("PRICE3", "299 rs")
+#6 Month
+PRICE4 = os.environ.get("PRICE4", "550 rs")
+#1 Year
+PRICE5 = os.environ.get("PRICE5", "999 rs")
 
 
 OWNER_ID = int(os.environ.get("OWNER_ID", "821215952"))
